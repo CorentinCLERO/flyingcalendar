@@ -83,7 +83,7 @@ const CalendarF = ({ today, daySelected, setDaySelected }) => {
       </div>
       <div className='app__CalendarF__day-buttons'>
         {newDays.map((day, dayIndex) => (
-          <div key={dayIndex} /* className={divButtonStyle(day)} */>
+          <div key={dayIndex}>
             <button type='button' className={buttonStyle(day)} onClick={() => setDaySelected(day)}>
               <time dateTime={format(day, 'yyyy-MM-dd')}>
                 {format(day, 'd')}

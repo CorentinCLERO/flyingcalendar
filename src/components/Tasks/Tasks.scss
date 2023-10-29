@@ -71,10 +71,17 @@
 .app__Tasks__task {
   position: absolute;
   width: 100%;
+  display: flex;
+  padding-left: 40px;
+  align-items: center;
+
 }
 
 .app__Tasks__task__description {
-  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 1350px) {
