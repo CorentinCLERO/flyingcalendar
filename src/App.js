@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="app__display">
-      <Tasks />
+      <Tasks daySelected={daySelected}  />
       <CalendarF today={today} daySelected={daySelected} setDaySelected={setDaySelected} />
     </div>
   );
