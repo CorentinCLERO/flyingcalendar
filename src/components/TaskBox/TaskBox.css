@@ -1,1 +1,67 @@
-/*# sourceMappingURL=TaskBox.css.map */
+.app__TaskBox {
+  width: 35vw;
+  margin: -30px 0;
+}
+
+.app__TaskBox > div {
+  margin: 30px 0;
+}
+
+.app__TaskBox__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.app__TaskBox__title {
+  width: 100%;
+  margin-right: 30px !important;
+}
+
+.app__TaskBox__title input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: xx-large;
+}
+
+.app__TaskBox__separation {
+  height: 3px;
+  width: 100%;
+}
+
+.app__TaskBox__datetime {
+  display: flex;
+  align-items: center;
+}
+
+.app__TaskBox__datetime div {
+  margin-right: 10px;
+}
+
+.app__TaskBox__textarea {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: -30px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.app__TaskBox__container__add-button {
+  display: flex;
+  justify-content: end;
+}
+
+.app__TaskBox__add-button {
+  border: none;
+  height: 30px;
+  width: 150px;
+  cursor: pointer;
+}/*# sourceMappingURL=TaskBox.css.map */

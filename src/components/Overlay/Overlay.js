@@ -6,9 +6,11 @@ const Overlay = ({ overlayIsOpen, setOverlayIsOpen, children }) => {
     <>
       {
         overlayIsOpen && (
-          <div className='app__Overlay__background' onClick={() => setOverlayIsOpen(false)}>
-            <div className='app__Overlay__container'>
-              {children}
+          <div>
+            <div className='app__Overlay__background' onMouseDown={() => setOverlayIsOpen(false)}>
+              <div className='app__Overlay__container' onMouseDown={e => e.stopPropagation()}>
+                {children}
+              </div>
             </div>
           </div>
         )
