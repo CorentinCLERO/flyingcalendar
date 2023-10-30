@@ -5,7 +5,6 @@ import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LocalizationProvider, MobileDatePicker, MobileTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import dayjs from 'dayjs';
 import { fr } from 'date-fns/locale';
 import { format } from 'date-fns';
 
@@ -33,7 +32,6 @@ const TaskBox = ({ daySelected }) => {
 
   const handleTextareaChange = (e) => {
     const textarea = e.target;
-    // Réinitialisez la hauteur pour calculer la nouvelle hauteur
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
     setComments(textarea.value)
@@ -47,11 +45,11 @@ const TaskBox = ({ daySelected }) => {
             <input type='text' placeholder='Add Title' value={title} onChange={(e) => setTitle(e.target.value)} />
             <div style={{ backgroundColor: hexColor + '26', borderLeft: "6px solid " + hexColor }} className='app__TaskBox__separation' />
           </div>
-          <div onClick={e => e.stopPropagation()}>
-            <div className='app__TaskBox__color' onClick={() => setColorPicker(!colorPicker)}>
-              <div style={{ backgroundColor: hexColor, height: "20px", width: "20px", border: "1px solid #999" }} />
+          <div onClick={e => e.stopPropagation()} className='app__TaskBox__container__color'>
+            <div onClick={() => setColorPicker(!colorPicker)}>
+              <div style={{ backgroundColor: hexColor, border: "1px solid #999" }} className='app__TaskBox__color' />
             </div>
-            {colorPicker && <div style={{ position: 'fixed' }}>
+            {colorPicker && <div style={{ position: 'fixed', zIndex: 1000 }} >
               <div onClick={() => setColorPicker(!colorPicker)} />
               <ChromePicker color={hexColor} onChange={(e) => setHexColor(e.hex)} />
             </div>}
@@ -78,29 +76,32 @@ const TaskBox = ({ daySelected }) => {
           <div>
             <FontAwesomeIcon icon={faClock} color={hexColor} size="3x" />
           </div>
-          <div>
-            <MobileTimePicker
-              label="Start time"
-              defaultValue={new Date()}
-              onChange={(e) => setStartTime(format(e, 'HH:mm'))}
-              sx={{
-                ".MuiInputBase-root": { backgroundColor: hexColor + '26' },
-                ".MuiOutlinedInput-input": { padding: '10px 14px' },
-                ".MuiInputLabel-root": { padding: '0 7px', marginLeft: '-5px', backgroundColor: '#FFFFFF', borderRadius: '5px' }
-              }}
-            />
-          </div>
-          <div>
-            <MobileTimePicker
-              label="End time"
-              defaultValue={new Date(new Date().getTime() + 60 * 60 * 1000)}
-              onChange={(e) => setEndTime(format(e, 'HH:mm'))}
-              sx={{
-                ".MuiInputBase-root": { backgroundColor: hexColor + '26' },
-                ".MuiOutlinedInput-input": { padding: '10px 14px' },
-                ".MuiInputLabel-root": { padding: '0 7px', marginLeft: '-5px', backgroundColor: '#FFFFFF', borderRadius: '5px' }
-              }}
-            />
+          <div className='app__TaskBox__TimePickers'>
+            <div>
+              <MobileTimePicker
+                label="Start time"
+                defaultValue={new Date()}
+                onChange={(e) => setStartTime(format(e, 'HH:mm'))}
+
+                sx={{
+                  ".MuiInputBase-root": { backgroundColor: hexColor + '26' },
+                  ".MuiOutlinedInput-input": { padding: '10px 14px' },
+                  ".MuiInputLabel-root": { padding: '0 7px', marginLeft: '-5px', backgroundColor: '#FFFFFF', borderRadius: '5px' }
+                }}
+              />
+            </div>
+            <div>
+              <MobileTimePicker
+                label="End time"
+                defaultValue={new Date(new Date().getTime() + 60 * 60 * 1000)}
+                onChange={(e) => setEndTime(format(e, 'HH:mm'))}
+                sx={{
+                  ".MuiInputBase-root": { backgroundColor: hexColor + '26' },
+                  ".MuiOutlinedInput-input": { padding: '10px 14px' },
+                  ".MuiInputLabel-root": { padding: '0 7px', marginLeft: '-5px', backgroundColor: '#FFFFFF', borderRadius: '5px' }
+                }}
+              />
+            </div>
           </div>
         </div>
         <div>

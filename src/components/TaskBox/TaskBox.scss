@@ -25,6 +25,11 @@
   font-size: xx-large;
 }
 
+.app__TaskBox__color {
+  height: 20px;
+  width: 20px;
+}
+
 .app__TaskBox__separation {
   height: 3px;
   width: 100%;
@@ -37,6 +42,11 @@
 
 .app__TaskBox__datetime div {
   margin-right: 10px;
+}
+
+.app__TaskBox__TimePickers {
+  display: flex;
+  flex-direction: row;
 }
 
 .app__TaskBox__textarea {
@@ -66,4 +76,38 @@
   height: 30px;
   width: 150px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .app__TaskBox {
+    width: 70vw;
+    margin: -30px 0;
+    z-index: 9;
+  }
+
+  .app__TaskBox__top {
+    display: block;
+  }
+
+  .app__TaskBox__top>div:nth-child(2) {
+    margin-top: 20px;
+  }
+
+  .app__TaskBox__color {
+    width: 100%;
+    height: 30px;
+  }
+
+  .app__TaskBox__TimePickers {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app__TaskBox__TimePickers>div {
+    width: 100%;
+  }
+
+  .app__TaskBox__TimePickers>div:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
