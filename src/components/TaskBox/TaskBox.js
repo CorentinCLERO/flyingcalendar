@@ -8,15 +8,16 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { fr } from 'date-fns/locale';
 import { format } from 'date-fns';
 
-const TaskBox = ({ daySelected }) => {
+const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
 
   const [hexColor, setHexColor] = useState("#6200EE")
   const [title, setTitle] = useState("")
   const [colorPicker, setColorPicker] = useState(false)
-  const [date, setDate] = useState("")
-  const [startTime, setStartTime] = useState("")
-  const [endTime, setEndTime] = useState("")
+  const [date, setDate] = useState(format(new Date(daySelected), 'EEE MMM d yyyy'))
+  const [startTime, setStartTime] = useState(format(new Date(), 'HH:mm'))
+  const [endTime, setEndTime] = useState(format(new Date(new Date().getTime() + 60 * 60 * 1000), 'HH:mm'))
   const [comments, setComments] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
     if (hexToRgb(hexColor) > 600) setHexColor("#6200EE")
@@ -37,12 +38,36 @@ const TaskBox = ({ daySelected }) => {
     setComments(textarea.value)
   }
 
+  const addMeeting = () => {
+    if (title.length > 0) {
+      setOverlayIsOpen(false);
+      const newMeeting = {
+        id: id,
+        title: title,
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        color: hexColor,
+        comments: comments
+      };
+      setMeetings(prevMeetings => [...prevMeetings, newMeeting]);
+    } else {
+      setErrorMessage('You have to add a title');
+    }
+  };
+
+
+  const writeInput = (e) => {
+    setTitle(e.target.value)
+    setErrorMessage('')
+  }
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
       <div className='app__TaskBox' onClick={() => setColorPicker(false)}>
         <div className='app__TaskBox__top'>
           <div className='app__TaskBox__title'>
-            <input type='text' placeholder='Add Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input type='text' placeholder='Add Title' value={title} onChange={(e) => writeInput(e)} />
             <div style={{ backgroundColor: hexColor + '26', borderLeft: "6px solid " + hexColor }} className='app__TaskBox__separation' />
           </div>
           <div onClick={e => e.stopPropagation()} className='app__TaskBox__container__color'>
@@ -114,7 +139,8 @@ const TaskBox = ({ daySelected }) => {
         </div>
         <div style={{ backgroundColor: hexColor + '26', borderLeft: "6px solid " + hexColor }} className='app__TaskBox__separation' />
         <div className='app__TaskBox__container__add-button'>
-          <button type='button' className='app__TaskBox__add-button' style={{ backgroundColor: hexColor }}> Add</button>
+          {errorMessage.length > 0 && <div>            {errorMessage}          </div>}
+          <button type='button' className='app__TaskBox__add-button' style={{ backgroundColor: hexColor }} onClick={addMeeting}> Add</button>
         </div>
       </div>
     </LocalizationProvider>
