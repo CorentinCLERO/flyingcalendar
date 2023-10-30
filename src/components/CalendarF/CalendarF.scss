@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .app__CalendarF__header {
@@ -95,5 +96,23 @@
 @media screen and (max-width: 1350px) {
   .app__CalendarF {
     flex: 1;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .app__CalendarF__day-buttons>div {
+    margin: 0 -3px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .app__CalendarF__day-buttons>div {
+    margin: 0 -4px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .app__CalendarF__day-buttons>div {
+    margin: 0 -5px;
   }
 }

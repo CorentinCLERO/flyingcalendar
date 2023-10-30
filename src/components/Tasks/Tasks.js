@@ -1,8 +1,8 @@
 import React from 'react';
 import './Tasks.css';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 
-const Tasks = ({ daySelected }) => {
+const Tasks = ({ daySelected, setOverlayIsOpen }) => {
 
   const meeting = [
     {
@@ -41,7 +41,7 @@ const Tasks = ({ daySelected }) => {
         <div className='app__Tasks__date-selected'>
           {format(daySelected, 'dd MMMM')}
         </div>
-        <button className='app__Tasks__add-button'>+</button>
+        <button className='app__Tasks__add-button' onClick={() => setOverlayIsOpen(true)}>+</button>
       </div>
       <hr className='app__Tasks__separation' />
       <div className='app__Tasks__days'>
@@ -57,10 +57,9 @@ const Tasks = ({ daySelected }) => {
         ))}
         <div className="app__Tasks__tasks">
           {meeting.map(task => (
-            <div>
+            <div key={task.title}>
               {format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM') &&
                 <div
-                  key={task.title}
                   className="app__Tasks__task"
                   style={{
                     top: `${(timeStringToNumber(task.startTime) * 100) / 2400}%`, // position de départ de la tâche
