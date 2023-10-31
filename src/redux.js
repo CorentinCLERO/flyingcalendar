@@ -1,8 +1,30 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+// Fonctions pour charger et sauvegarder l'état
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('meetingsState');
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('meetingsState', serializedState);
+  } catch (err) {
+    console.error("Could not save state", err);
+  }
+};
+
 const meetingsSlice = createSlice({
   name: "meetings",
-  initialState: [
+  initialState: loadState() || [
     {
       id: 1,
       title: 'Rendu du test technique',
@@ -10,7 +32,7 @@ const meetingsSlice = createSlice({
       startTime: '10:00',
       endTime: '14:00',
       color: "#00FFDA",
-      comments: "J'espère que tu vas aime ce projet, si tu as une question je suis disponible"
+      comments: "J'espère que tu vas aimer ce projet, si tu as une question je suis disponible"
     }
   ],
   reducers: {
@@ -24,7 +46,8 @@ const meetingsSlice = createSlice({
         color: action.payload.color,
         comments: action.payload.comments,
       }
-      state.push(newMeeting)
+      state.push(newMeeting);
+      saveState(state); // Sauvegarder dans le localStorage à chaque ajout
     },
     updateMeeting: (state, action) => {
       const meetingIndex = state.findIndex(m => m.id === action.payload.id);
@@ -39,9 +62,12 @@ const meetingsSlice = createSlice({
           comments: action.payload.comments
         };
       }
+      saveState(state); // Sauvegarder dans le localStorage à chaque mise à jour
     },
     deleteMeeting: (state, action) => {
-      return state.filter(m => m.id !== action.payload);
+      const newState = state.filter(m => m.id !== action.payload);
+      saveState(newState); // Sauvegarder dans le localStorage après chaque suppression
+      return newState;
     },
   },
 })
@@ -52,4 +78,4 @@ export const store = configureStore({
   reducer: {
     todo: meetingsSlice.reducer
   }
-})
+});
