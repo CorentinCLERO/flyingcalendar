@@ -2,17 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const meetingsSlice = createSlice({
   name: "meetings",
-  initialState: [
-    {
-      id: 1,
-      title: 'ezrzerze',
-      date: 'Tue Oct 31 2023',
-      startTime: '01:17',
-      endTime: '15:17',
-      color: "#6200EE",
-      comments: "un commentaire"
-    }
-  ],
+  initialState: [],
   reducers: {
     addMeeting: (state, action) => {
       // {type: "meetings/addMeeting", paylod: {title: 'ezrzerze',date: 'Tue Oct 24 2023',startTime: '11:17',endTime: '12:17',color: "#6200EE",comments: "un commentaire"}}
