@@ -6,7 +6,7 @@ const meetingsSlice = createSlice({
     {
       id: 1,
       title: 'Rendu du test technique',
-      date: 'Tue Oct 31 2023',
+      date: 'Wed Nov 01 2023',
       startTime: '10:00',
       endTime: '14:00',
       color: "#00FFDA",
