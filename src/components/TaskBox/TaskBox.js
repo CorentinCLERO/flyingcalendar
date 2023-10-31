@@ -19,7 +19,7 @@ const TaskBox = ({ daySelected, setOverlayIsOpen, meeting, setMeetingSelected })
     return setMinutes(setHours(currentDate, hours), minutes);
   }
 
-  const [hexColor, setHexColor] = useState(meeting?.color ? meeting.color : "#6200EE")
+  const [hexColor, setHexColor] = useState(meeting?.color ? meeting.color : "#00FFDA")
   const [title, setTitle] = useState(meeting?.title ? meeting.title : "")
   const [date, setDate] = useState(meeting?.date ? new Date(meeting.date) : format(new Date(daySelected), 'EEE MMM d yyyy'))
   const [startTime, setStartTime] = useState(meeting?.startTime ? getCurrentDateWithMeetingTime(meeting.startTime) : new Date())
@@ -30,7 +30,7 @@ const TaskBox = ({ daySelected, setOverlayIsOpen, meeting, setMeetingSelected })
   const isMeeting = Object.keys(meeting).length > 0;
 
   useEffect(() => {
-    if (!colorPicker && hexToRgb(hexColor) > 600) setHexColor("#6200EE")
+    if (!colorPicker && hexToRgb(hexColor) > 600) setHexColor("#00FFDA")
   }, [colorPicker, hexColor])
 
   const hexToRgb = (hex) => {
