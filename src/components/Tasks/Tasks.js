@@ -4,20 +4,21 @@ import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteMeeting } from '../../redux';
 
-const Tasks = ({ daySelected, setOverlayIsOpen }) => {
+const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
 
   const hours = Array.from({ length: 25 }).map((_, i) => i).filter(hour => hour % 2 === 0);
+  const meetings = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
 
   function timeStringToNumber(time) {
     const [hours, minutes] = time.split(":").map(Number);
     return (hours * 100) + (minutes * (5 / 3));
   }
 
-  //redux
-  const meetings = useSelector((state) => state.todo);
-
-  const dispatch = useDispatch();
-
+  function displayTask(task) {
+    setOverlayIsOpen(true);
+    setMeetingSelected(task)
+  }
 
   return (
     <div className='app__Tasks'>
@@ -52,7 +53,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen }) => {
                     borderLeft: '6px solid ' + task.color,
                   }}
                 >
-                  <div className='app__Tasks__task__description'>
+                  <div className='app__Tasks__task__description' onClick={() => displayTask(task)}>
                     {task.title}
                   </div>
                   <button

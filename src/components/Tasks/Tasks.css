@@ -101,6 +101,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
   margin-right: 80px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1350px) {

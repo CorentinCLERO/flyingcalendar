@@ -2,7 +2,17 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const meetingsSlice = createSlice({
   name: "meetings",
-  initialState: [],
+  initialState: [
+    {
+      id: 1,
+      title: 'ezrzerze',
+      date: 'Tue Oct 31 2023',
+      startTime: '01:17',
+      endTime: '15:17',
+      color: "#6200EE",
+      comments: "un commentaire"
+    }
+  ],
   reducers: {
     addMeeting: (state, action) => {
       // {type: "meetings/addMeeting", paylod: {title: 'ezrzerze',date: 'Tue Oct 24 2023',startTime: '11:17',endTime: '12:17',color: "#6200EE",comments: "un commentaire"}}
@@ -19,7 +29,7 @@ const meetingsSlice = createSlice({
     },
     updateMeeting: (state, action) => {
       // {type: "meetings/updateMeeting", paylod: {id: idachanger,title: 'ezrzerze',date: 'Tue Oct 24 2023',startTime: '11:17',endTime: '12:17',color: "#6200EE",comments: "un commentaire"}}
-      const meetingIndex = state.find(m => m.id === action.payload.id);
+      const meetingIndex = state.findIndex(m => m.id === action.payload.id);
       if (meetingIndex !== -1) {
         state[meetingIndex] = {
           ...state[meetingIndex], // copie toutes les propriétés de l'ancienne réunion
