@@ -20,8 +20,8 @@ const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
   const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
-    if (hexToRgb(hexColor) > 600) setHexColor("#6200EE")
-  }, [colorPicker])
+    if (!colorPicker && hexToRgb(hexColor) > 600) setHexColor("#6200EE")
+  }, [colorPicker, hexColor])
 
   const hexToRgb = (hex) => {
     let bigint = parseInt(hex.substring(1), 16);
@@ -76,7 +76,7 @@ const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
             </div>
             {colorPicker && <div style={{ position: 'fixed', zIndex: 1000 }} >
               <div onClick={() => setColorPicker(!colorPicker)} />
-              <ChromePicker color={hexColor} onChange={(e) => setHexColor(e.hex)} />
+              <ChromePicker color={hexColor} onChange={(e) => setHexColor(e.hex)} disableAlpha={true} />
             </div>}
           </div>
         </div>

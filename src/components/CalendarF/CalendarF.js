@@ -18,7 +18,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const CalendarF = ({ today, daySelected, setDaySelected }) => {
+const CalendarF = ({ today, daySelected, setDaySelected, meetings }) => {
 
   const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
   let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
@@ -49,7 +49,14 @@ const CalendarF = ({ today, daySelected, setDaySelected }) => {
     if (!isSameMonth(day, firstDayCurrentMonth)) { baseStyle += ' other-month' }
     if (isToday(day) && !isEqual(day, daySelected)) { baseStyle += ' today' }
     if (isEqual(day, daySelected)) { baseStyle += ' app__CalendarF__day-button__selected' }
+    if (hasMeetingOnDay(day)) { baseStyle += ' has-meeting'; }
     return baseStyle
+  }
+
+  function hasMeetingOnDay(day) {
+    return meetings.some(meeting => {
+      return isEqual(parse(meeting.date, 'EEE MMM dd yyyy', new Date()), day);
+    });
   }
 
   function previousMonth() {

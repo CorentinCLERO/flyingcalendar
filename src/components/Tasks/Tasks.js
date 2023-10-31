@@ -2,7 +2,7 @@ import React from 'react';
 import './Tasks.css';
 import { format } from 'date-fns';
 
-const Tasks = ({ daySelected, setOverlayIsOpen, meeting }) => {
+const Tasks = ({ daySelected, setOverlayIsOpen, meetings, setMeetings }) => {
 
   const hours = Array.from({ length: 25 }).map((_, i) => i).filter(hour => hour % 2 === 0);
 
@@ -10,6 +10,12 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meeting }) => {
     const [hours, minutes] = time.split(":").map(Number);
     return (hours * 100) + (minutes * (5 / 3));
   }
+
+  const deleteTask = (taskToDelete) => {
+    const updatedMeetings = meetings.filter(task => task.id !== taskToDelete.id);
+    setMeetings(updatedMeetings);
+  }
+
 
   return (
     <div className='app__Tasks'>
@@ -32,7 +38,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meeting }) => {
           </div>
         ))}
         <div className="app__Tasks__tasks">
-          {meeting.map(task => (
+          {meetings.map(task => (
             <div key={task.title}>
               {format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM') &&
                 <div
@@ -47,6 +53,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meeting }) => {
                   <div className='app__Tasks__task__description'>
                     {task.title}
                   </div>
+                  <button className="app__Tasks__task__close-btn" onClick={() => deleteTask(task)}>x</button>
                 </div>}
             </div>
           ))}

@@ -18,17 +18,18 @@ function App() {
   useEffect(() => {
     if (meetings.length > 0) {
       const highestId = Math.max(...meetings.map(meeting => meeting.id));
-      setMaxId(highestId);
+      setMaxId(highestId + 1);
     }
-  }, [meetings])
+  }, [meetings]);
+
 
   return (
     <div className="app__display">
       <Overlay overlayIsOpen={overlayIsOpen} setOverlayIsOpen={setOverlayIsOpen} >
         <TaskBox daySelected={daySelected} setMeetings={setMeetings} setOverlayIsOpen={setOverlayIsOpen} id={maxId} />
       </Overlay>
-      <Tasks daySelected={daySelected} setOverlayIsOpen={setOverlayIsOpen} meeting={meetings} />
-      <CalendarF today={today} daySelected={daySelected} setDaySelected={setDaySelected} />
+      <Tasks daySelected={daySelected} setOverlayIsOpen={setOverlayIsOpen} meetings={meetings} setMeetings={setMeetings} />
+      <CalendarF today={today} daySelected={daySelected} setDaySelected={setDaySelected} meetings={meetings} />
     </div>
   );
 }

@@ -92,6 +92,23 @@
   color: #3c81f9;
 }
 
+.app__CalendarF__day-button {
+  position: relative;
+}
+
+.app__CalendarF__day-button.has-meeting::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 @media screen and (max-width: 1350px) {
   .app__CalendarF {
     flex: 1;
