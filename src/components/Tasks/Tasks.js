@@ -1,8 +1,10 @@
 import React from 'react';
 import './Tasks.css';
 import { format } from 'date-fns';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMeeting } from '../../redux';
 
-const Tasks = ({ daySelected, setOverlayIsOpen, meetings, setMeetings }) => {
+const Tasks = ({ daySelected, setOverlayIsOpen }) => {
 
   const hours = Array.from({ length: 25 }).map((_, i) => i).filter(hour => hour % 2 === 0);
 
@@ -11,10 +13,10 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meetings, setMeetings }) => {
     return (hours * 100) + (minutes * (5 / 3));
   }
 
-  const deleteTask = (taskToDelete) => {
-    const updatedMeetings = meetings.filter(task => task.id !== taskToDelete.id);
-    setMeetings(updatedMeetings);
-  }
+  //redux
+  const meetings = useSelector((state) => state.todo);
+
+  const dispatch = useDispatch();
 
 
   return (
@@ -39,7 +41,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meetings, setMeetings }) => {
         ))}
         <div className="app__Tasks__tasks">
           {meetings.map(task => (
-            <div key={task.title}>
+            <div key={task.id}>
               {format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM') &&
                 <div
                   className="app__Tasks__task"
@@ -53,7 +55,12 @@ const Tasks = ({ daySelected, setOverlayIsOpen, meetings, setMeetings }) => {
                   <div className='app__Tasks__task__description'>
                     {task.title}
                   </div>
-                  <button className="app__Tasks__task__close-btn" onClick={() => deleteTask(task)}>x</button>
+                  <button
+                    className="app__Tasks__task__close-btn"
+                    onClick={() => dispatch(deleteMeeting(task.id))}
+                  >
+                    x
+                  </button>
                 </div>}
             </div>
           ))}

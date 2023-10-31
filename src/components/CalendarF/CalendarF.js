@@ -16,12 +16,14 @@ import {
 } from 'date-fns';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 
 
-const CalendarF = ({ today, daySelected, setDaySelected, meetings }) => {
+const CalendarF = ({ today, daySelected, setDaySelected }) => {
 
   const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
   let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
+  const meetings = useSelector((state) => state.todo);
 
   useEffect(() => {
     setCurrentMonth(format(daySelected, 'MMM-yyyy'));

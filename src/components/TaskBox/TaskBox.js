@@ -7,8 +7,10 @@ import { LocalizationProvider, MobileDatePicker, MobileTimePicker } from '@mui/x
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { fr } from 'date-fns/locale';
 import { format } from 'date-fns';
+import { useDispatch } from 'react-redux';
+import { addMeeting } from '../../redux';
 
-const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
+const TaskBox = ({ daySelected, setOverlayIsOpen }) => {
 
   const [hexColor, setHexColor] = useState("#6200EE")
   const [title, setTitle] = useState("")
@@ -38,11 +40,12 @@ const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
     setComments(textarea.value)
   }
 
-  const addMeeting = () => {
+  const dispatch = useDispatch();
+
+  const addNewMeeting = () => {
     if (title.length > 0) {
       setOverlayIsOpen(false);
       const newMeeting = {
-        id: id,
         title: title,
         date: date,
         startTime: startTime,
@@ -50,12 +53,11 @@ const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
         color: hexColor,
         comments: comments
       };
-      setMeetings(prevMeetings => [...prevMeetings, newMeeting]);
+      dispatch(addMeeting(newMeeting))
     } else {
       setErrorMessage('You have to add a title');
     }
   };
-
 
   const writeInput = (e) => {
     setTitle(e.target.value)
@@ -140,7 +142,7 @@ const TaskBox = ({ daySelected, setMeetings, setOverlayIsOpen, id }) => {
         <div style={{ backgroundColor: hexColor + '26', borderLeft: "6px solid " + hexColor }} className='app__TaskBox__separation' />
         <div className='app__TaskBox__container__add-button'>
           {errorMessage.length > 0 && <div>            {errorMessage}          </div>}
-          <button type='button' className='app__TaskBox__add-button' style={{ backgroundColor: hexColor }} onClick={addMeeting}> Add</button>
+          <button type='button' className='app__TaskBox__add-button' style={{ backgroundColor: hexColor }} onClick={addNewMeeting}> Add</button>
         </div>
       </div>
     </LocalizationProvider>
