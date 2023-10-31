@@ -20,6 +20,27 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
     setMeetingSelected(task)
   }
 
+  function getProcessedTasks(meetings, daySelected) {
+    const dayTasks = meetings.filter(task => format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM'));
+
+    const overlappingTasks = [];
+    dayTasks.forEach(task => {
+      const overlapping = dayTasks.filter(otherTask => {
+        return (timeStringToNumber(otherTask.startTime) < timeStringToNumber(task.endTime) &&
+          timeStringToNumber(otherTask.endTime) > timeStringToNumber(task.startTime));
+      });
+      overlappingTasks.push({
+        ...task,
+        overlappingCount: overlapping.length,
+        overlappingIndex: overlapping.indexOf(task)
+      });
+    });
+
+    return overlappingTasks;
+  }
+
+  const processedTasks = getProcessedTasks(meetings, daySelected);
+
   return (
     <div className='app__Tasks'>
       <div className='app__Tasks__header'>
@@ -41,7 +62,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
           </div>
         ))}
         <div className="app__Tasks__tasks">
-          {meetings.map(task => (
+          {processedTasks.map(task => (
             <div key={task.id}>
               {format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM') &&
                 <div
@@ -51,6 +72,8 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
                     height: `${(timeStringToNumber(task.endTime) - timeStringToNumber(task.startTime)) * 100 / 2400}%`, // hauteur de la tâche                
                     backgroundColor: task.color + '26',
                     borderLeft: '6px solid ' + task.color,
+                    width: `calc(95% / ${task.overlappingCount})`,
+                    left: `calc((95% / ${task.overlappingCount}) * ${task.overlappingIndex})`,
                   }}
                 >
                   <div className='app__Tasks__task__description' onClick={() => displayTask(task)}>

@@ -72,11 +72,19 @@
 
 .app__Tasks__task {
   position: absolute;
-  width: 95%;
   display: flex;
   padding-left: 40px;
   align-items: center;
   overflow: hidden;
+}
+
+.app__Tasks__task__description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-right: 100px;
+  cursor: pointer;
 }
 
 .app__Tasks__task__close-btn {
@@ -93,16 +101,7 @@
   padding: 2px 7px 4px 7px;
   border-radius: 5px;
   justify-content: center;
-  margin-right: 30px;
-}
-
-.app__Tasks__task__description {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  margin-right: 80px;
-  cursor: pointer;
+  margin-right: 60px;
 }
 
 @media screen and (max-width: 1350px) {

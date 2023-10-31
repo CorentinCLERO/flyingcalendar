@@ -1,6 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-// Fonctions pour charger et sauvegarder l'état
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem('meetingsState');
@@ -47,7 +46,7 @@ const meetingsSlice = createSlice({
         comments: action.payload.comments,
       }
       state.push(newMeeting);
-      saveState(state); // Sauvegarder dans le localStorage à chaque ajout
+      saveState(state);
     },
     updateMeeting: (state, action) => {
       const meetingIndex = state.findIndex(m => m.id === action.payload.id);
@@ -62,11 +61,11 @@ const meetingsSlice = createSlice({
           comments: action.payload.comments
         };
       }
-      saveState(state); // Sauvegarder dans le localStorage à chaque mise à jour
+      saveState(state);
     },
     deleteMeeting: (state, action) => {
       const newState = state.filter(m => m.id !== action.payload);
-      saveState(newState); // Sauvegarder dans le localStorage après chaque suppression
+      saveState(newState);
       return newState;
     },
   },
