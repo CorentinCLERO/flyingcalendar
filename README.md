@@ -38,7 +38,7 @@ Pour faire fonctionner cette application :
 - yarn start
 - Enjoy !
 
-Ou sinon elle est disponible ici => [flyingcalendar.vercel.app](flyingcalendar.vercel.app)
+Ou sinon elle est disponible ici => [flyingcalendar.vercel.app](https://flyingcalendar.vercel.app)
 
 ## Description de l'application
 
@@ -83,6 +83,11 @@ Elle permet de :
 
 ### Multi-Tâches
 
-![Multi-Tâches](./screens/multitask.png)
+![Multi-Tâches](./screens/multitasks.png)
 
 J'ai essayé de rendre possible l'affichage de plusieurs tâches à la même heure
+
+### Rendu mobile 
+
+![Rendu mobile du calendrier](./screens/responsivecalendar.png)
+![Rendu mobile de l'ajout de tâche](./screens/responsiveaddtask.png)
