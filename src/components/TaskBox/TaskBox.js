@@ -6,10 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LocalizationProvider, MobileDatePicker, MobileTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { fr } from 'date-fns/locale';
-import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import { addMeeting, deleteMeeting, updateMeeting } from '../../redux';
-import { parse, setHours, setMinutes } from 'date-fns';
+import { parse, setHours, setMinutes, format } from 'date-fns';
 
 const TaskBox = ({ daySelected, setOverlayIsOpen, meeting, setMeetingSelected }) => {
 

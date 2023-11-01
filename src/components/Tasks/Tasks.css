@@ -76,6 +76,7 @@
   padding-left: 40px;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .app__Tasks__task__description {
@@ -84,7 +85,6 @@
   text-overflow: ellipsis;
   max-width: 100%;
   margin-right: 100px;
-  cursor: pointer;
 }
 
 .app__Tasks__task__close-btn {
@@ -107,15 +107,5 @@
 @media screen and (max-width: 1350px) {
   .app__Tasks {
     flex: 1;
-  }
-}
-@media screen and (max-width: 1350px) {
-  .app__Tasks__task {
-    width: 90%;
-  }
-}
-@media screen and (max-width: 900px) {
-  .app__Tasks__task {
-    width: 84%;
   }
 }/*# sourceMappingURL=Tasks.css.map */

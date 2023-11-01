@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Tasks.css';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,6 +41,29 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
 
   const processedTasks = getProcessedTasks(meetings, daySelected);
 
+  const [percentage, setPercentage] = useState(calculatePercentage(window.innerWidth));
+
+  useEffect(() => {
+    function handleResize() {
+      setPercentage(calculatePercentage(window.innerWidth));
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function calculatePercentage(screenWidth) {
+    if (screenWidth <= 900) {
+      return 86;
+    } else if (screenWidth <= 1350) {
+      return 90;
+    } else {
+      return 95;
+    }
+  }
+
   return (
     <div className='app__Tasks'>
       <div className='app__Tasks__header'>
@@ -63,7 +86,7 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
         ))}
         <div className="app__Tasks__tasks">
           {processedTasks.map(task => (
-            <div key={task.id}>
+            <div key={task.id} onClick={() => displayTask(task)}>
               {format(new Date(task.date), 'dd MMMM') === format(daySelected, 'dd MMMM') &&
                 <div
                   className="app__Tasks__task"
@@ -72,19 +95,24 @@ const Tasks = ({ daySelected, setOverlayIsOpen, setMeetingSelected }) => {
                     height: `${(timeStringToNumber(task.endTime) - timeStringToNumber(task.startTime)) * 100 / 2400}%`, // hauteur de la tâche                
                     backgroundColor: task.color + '26',
                     borderLeft: '6px solid ' + task.color,
-                    width: `calc(95% / ${task.overlappingCount})`,
-                    left: `calc((95% / ${task.overlappingCount}) * ${task.overlappingIndex})`,
+                    width: `calc(${percentage}% / ${task.overlappingCount})`,
+                    left: `calc((${percentage}% / ${task.overlappingCount}) * ${task.overlappingIndex})`,
                   }}
                 >
-                  <div className='app__Tasks__task__description' onClick={() => displayTask(task)}>
+                  <div className='app__Tasks__task__description' >
                     {task.title}
                   </div>
-                  <button
-                    className="app__Tasks__task__close-btn"
-                    onClick={() => dispatch(deleteMeeting(task.id))}
-                  >
-                    x
-                  </button>
+                  <div >
+                    <button
+                      className="app__Tasks__task__close-btn"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        dispatch(deleteMeeting(task.id));
+                      }}
+                    >
+                      x
+                    </button>
+                  </div>
                 </div>}
             </div>
           ))}

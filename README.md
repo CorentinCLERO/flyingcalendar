@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Test technique Flying For You
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+J'ai créé une appli de calendrier simple en me rapprochant le plus possible du design donné.
+Le calendrier permet d'ajouter et gérer des tâches en fonction du calendrier.
 
-## Available Scripts
+## Objectif
 
-In the project directory, you can run:
+Les utilisateurs doivent pouvoir :
+- Afficher la disposition optimale de l’application en fonction de l’appareil taille de l’écran (Responsive)
+- Ajouter un nouvel événement au calendrier
+- Supprimer les événements de la liste
 
-### `yarn start`
+[Design Figma](https://www.figma.com/file/75AixComjj3oC1whti6HVQ/Untitled?type=design&node-id=1-2963&mode=design)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Spécificités techniques 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Pour ce test, j'ai utilisé :
 
-### `yarn test`
+- React
+- SCSS
+- Redux via Redux Toolkit
+- Localstorage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Les packages React utilisés sont :
 
-### `yarn build`
+- Redux Toolkit 
+- MUI pour les composants de date et de temps
+- React Color pour choisir les couleurs des tâches
+- date-fns pour la gestion du temps
+- FontAwesome pour les icônes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Mise en route de l'application
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Pour faire fonctionner cette application :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Télécharger le projet
+- yarn
+- yarn start
+- Enjoy !
 
-### `yarn eject`
+Ou sinon elle est disponible ici => [flyingcalendar.vercel.app](flyingcalendar.vercel.app)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Description de l'application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+L'application est présentée comme ceci :
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Calendrier
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Calendrier](./screens/calendar.png)
 
-## Learn More
+Il permet de :
+- Voir les jours
+- Naviguer entre les mois (avec les flèches ou en cliquant sur les jours du mois suivant)
+- Voir s'il y a des tâches sur des jours
+- Voir le jour actuel
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Liste des tâches
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Liste des tâches](./screens/tasks.png)
 
-### Code Splitting
+Elle permet de :
+- Voir les tâches en fonction du jour sélectionné et des heures pour laquelle elle est programmée
+- Ajouter des tâches via un bouton
+- Supprimer une tâche en cliquant sur la croix
+- Modifier une tâche en cliquant sur la tâche
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Ajout de tâche
 
-### Analyzing the Bundle Size
+![Ajout de tâche](./screens/addtask.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Elle permet de :
+- D'ajouter une tâche pour le jour sélectionné
+- Il est possible de modifier le titre, la couleur, le jour, l'heure de début et de fin ainsi que rajouter un commentaire
 
-### Making a Progressive Web App
+### Visualisation de tâche
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Visualisation de tâche](./screens/seetask.png)
 
-### Advanced Configuration
+Elle permet de :
+- De voir tous les détails sur la tâche (titre, couleur, date, commentaire, heure de début et de fin)
+- Il est possible de modifier le titre, la couleur, le jour, le commentaire, l'heure de début et de fin
+- Possibilité de supprimer la tâche
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Multi-Tâches
 
-### Deployment
+![Multi-Tâches](./screens/multitask.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+J'ai essayé de rendre possible l'affichage de plusieurs tâches à la même heure
